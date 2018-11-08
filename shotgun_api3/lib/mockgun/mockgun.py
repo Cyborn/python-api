@@ -246,9 +246,8 @@ class Shotgun(object):
 
     def find(
         self, entity_type, filters, fields=None, order=None, filter_operator=None,
-        limit=0, retired_only=False, page=0
+        limit=0, retired_only=False, page=0, include_archived_projects=True, additional_filter_presets=None
     ):
-
         self.finds += 1
 
         self._validate_entity_type(entity_type)
@@ -317,11 +316,12 @@ class Shotgun(object):
 
     def find_one(
         self, entity_type, filters, fields=None, order=None, filter_operator=None,
-        retired_only=False
+        retired_only=False, include_archived_projects=True, additional_filter_presets=None
     ):
         results = self.find(
-            entity_type, filters, fields=fields,
-            order=order, filter_operator=filter_operator, retired_only=retired_only
+            entity_type, filters, fields=fields, order=order, filter_operator=filter_operator,
+            retired_only=retired_only, include_archived_projects=include_archived_projects,
+            additional_filter_presets=additional_filter_presets
         )
         return results[0] if results else None
 
